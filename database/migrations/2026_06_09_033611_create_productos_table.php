@@ -10,11 +10,18 @@ class CreateProductosTable extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('categoria_id');
+            $table->unsignedBigInteger('proveedor_id');
+
             $table->string('nombre');
             $table->text('descripcion')->nullable();
             $table->decimal('precio', 8, 2);
             $table->integer('stock');
             $table->timestamps();
+
+            $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade');
+            $table->foreign('proveedor_id')->references('id')->on('proveedores')->onDelete('cascade');
         });
     }
 
